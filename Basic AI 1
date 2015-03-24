@@ -1,0 +1,146 @@
+public class ComputerAI
+{
+
+   private card card1;
+   private card card2;
+   private card card3;
+   private card card4;
+   private Hand hand;
+   private boolean card1Known = false;
+   private boolean card2Known = false;
+   private boolean card3Known = false;
+   private boolean card4Known = false;
+   private boolean hasPlayed = false;
+   private int numUnknowns = 0;
+   private boolean ratatat = false;
+   
+   public ComputerAI()
+   {
+   card1 = board.getCard1();
+   card2 = board.getCard2();
+   card3 = board.getCard3();
+   card4 = board.getCard4();
+   Hand = (card1,card2,card3,card4);
+   
+   card1Known = true;
+   card4Known = true;
+   numUnknowns = 2;
+
+   }
+   
+   public CompareCard(card Newcard)
+   {
+      if (Newcard.getVal < card1) && card1Known = true;
+      {
+            
+            return card1   
+      }
+      else if (Newcard.getVal < card2) && card2Known = true;
+      {
+            return card2;    
+      }
+      else if (Newcard.getVal < card3) && card3Known = true;
+      {
+            return card3;
+      }
+      else if (Newcard.getVal < card4) && card4Known = true;
+      {
+            return card4;
+      }
+      else if Newcard.getVal = "Power";
+      {
+         return PowerCard;
+      }
+      else
+      {
+            
+            return not lower than anyones cards;//havent figured this bit out yet/
+      }
+   }
+   public void discardAI()
+   {
+      if discard.isEmpty() = false;
+      {
+         discardTop = compareCard(discard.getTopCard());
+      
+         if discardTop = card1
+         {
+            card placeHolder = discard.getTopcard();
+            discard.setTopCard(hand.getCard(1))
+            card1 = placeHolder;
+            card1Known = true;
+            hasPlayed = true;
+         }
+         else if discardTop = card2
+         {
+            card2 = discardTop;
+            card2Known = true;
+            hasPlayed = true;
+         }
+         else if discardTop = card3
+         {
+            card3 = discardTop;
+            card3Known = true;
+            hasPlayed = true;
+         }
+         else if discardTop = card4
+         {
+            card4 = discardTop;
+            card4Known = true;
+            hasPlayed = true;
+         }
+         else if (discard.getTop < some###  && numUnknowns > 0)
+         {
+            for (i=0; i<3; i++)
+            {
+               if ((hand.getCard(i).isUnknown() = true) or(hand.getCard(i).isPowerCard() = true)
+               {
+                  card placeHolder = discard.getTopcard();
+                  discard.setTopCard(hand.getCard(i));
+                  hand.setCard(i) = placeHolder;
+                  i = 3;
+                  hasPlayed = true;
+                  
+               }
+            }
+         }   
+      
+   }  
+   
+   public void Draw()
+   {
+      card topCard = deck.getTopCard()
+      if (topCard.getType =! "power")
+      {
+         run the same card itendifier thing in the discard
+      }
+      if (topCard.getType = "power")
+      
+   }
+   
+   public void ratatDecision()
+   {
+   
+   }
+   
+   public RunAITurn()
+   {
+
+      hasPlayed = false;
+      discardAI();
+      if (hasPlayed. = false;)
+      {
+         drawAI();
+      }
+      ratatat = ratatDecision();
+      
+    
+
+      
+   }
+   public void getRatatat()
+   {
+   }
+   public void getCardFrom()
+   {
+   }
