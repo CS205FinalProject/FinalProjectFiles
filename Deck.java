@@ -18,6 +18,16 @@ public class Deck{
 				list.add(card);
 			}
 		}
+		for (int k=0; k<9; k++){
+			Card c = new Card(9);
+			list.add(c);
+		}
+		for (int p=0; p<3; p++){
+			for (int q=10; q<13; q++){
+				Card cc = new Card(q);
+				list.add(cc);
+			}
+		}
 	}
 
 
