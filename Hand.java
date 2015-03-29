@@ -18,6 +18,11 @@ public class Hand{
 		hand.add(card);
 	}//add
 	
+	public void printHand(){
+		for (int i=0; i<hand.size(); i++){
+			System.out.println(hand.get(i).getValue());
+		}
+	}
 	
 	public void clear(){
 		hand.clear();
