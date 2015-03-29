@@ -49,6 +49,7 @@ public class Deck{
 		return topC;
 	}
 
+
 	public void printDeck(){
 		for (int i=0; i<list.size(); i++) {
 			System.out.println(list.get(i).getValue());
