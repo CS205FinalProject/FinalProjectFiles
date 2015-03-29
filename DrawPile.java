@@ -30,8 +30,9 @@ public class DrawPile{
 	}//add
 	
 	public Card getTop(){
-		return pile.get(0);
+		Card c = pile.remove(0);
 		pile.remove(0);
+		return c;
 	}
 
 	public void clear(){
