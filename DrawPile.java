@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-public class Pile{
+public class DrawPile{
 
 	private String pileType;
 	private ArrayList <Card> pile;
@@ -12,7 +12,7 @@ public class Pile{
 	private String deckImg;
 	
 	//Constructor
-	public Pile(){
+	public DrawPile(){
 		pile = new ArrayList<Card>();
 
 		if(pileType=="draw"){
@@ -31,6 +31,7 @@ public class Pile{
 	
 	public Card getTop(){
 		return pile.get(0);
+		pile.remove(0);
 	}
 
 	public void clear(){
