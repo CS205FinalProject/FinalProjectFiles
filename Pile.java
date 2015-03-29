@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-public class DrawPile{
+public class Pile{
 
 	private String pileType;
 	private ArrayList <Card> pile;
@@ -29,11 +29,13 @@ public class DrawPile{
 		pile.add(card);
 	}//add
 	
-	public Card getTop(){
-		Card c = pile.get(0);
-		pile.remove(0);
+	public Card getTopDraw(){
+		Card c = deck.get(0);
+		deck.remove(0);
 		return c;
 	}
+
+
 
 	public void clear(){
 		pile.clear();
