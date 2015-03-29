@@ -24,7 +24,7 @@ public class Player{
 	}
 	
 	//the hand method returns the players/computers hand
-	public void getHand()
+	public Hand getHand()
 	{
 		return hand;
 	}

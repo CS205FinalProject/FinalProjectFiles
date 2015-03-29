@@ -9,20 +9,20 @@ public class CardTest{
 
 		int numberOfPlayers = 2;//get from gui setup IRL
 
-		Player p1 = new Player();
-		Player p2 = new Player();
-
 		Deck deck = new Deck();
 		deck.shuffle();
 		
 		deal(deck, numberOfPlayers);
+
+		Player p1 = new Player();
+		Player p2 = new Player();
 
 	}
 
 	public void deal(Deck deck, int numberOfPlayers){
 		for (int i=0; i<numberOfPlayers; i++){
 			for (int j=0; j<4; j++){
-
+				
 			}
 		}
 	}
