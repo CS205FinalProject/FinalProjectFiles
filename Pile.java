@@ -25,6 +25,10 @@ public class Pile{
 		return c;
 	}
 
+	public int drawPileSize(){
+		return deck.deckSize();
+	}
+
 	public void clear(ArrayList<Card> pile){
 		pile.clear();
 	}//clear deck or discard

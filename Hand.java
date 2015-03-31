@@ -23,6 +23,15 @@ public class Hand{
 			System.out.println(hand.get(i).getValue());
 		}
 	}
+
+	public Card[] getOuterCards(){
+		// Card left = hand.get(0);
+		// Card right = hand.get(3);
+		Card[] outers = new Card[2];
+		outers[0] = hand.get(0);
+		outers[1] = hand.get(3);
+		return outers;
+	}
 	
 	public void clear(){
 		hand.clear();

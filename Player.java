@@ -29,6 +29,10 @@ public class Player{
 		return hand;
 	}
 
+	public Card[] getOuterCards(){
+		return hand.getOuterCards();
+	}
+
 	public void printHand(){
 		hand.printHand();
 	}
