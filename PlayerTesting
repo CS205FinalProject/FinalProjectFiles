@@ -1,0 +1,31 @@
+
+public class PlayerTesting {
+
+	public static void main(String[] args) {
+		//card instance
+		Card c1=new Card(5);
+		
+		//hand instance
+		Hand h1=new Hand();
+		h1.add(c1);
+		
+		//player instance for player class testing
+		Player p1=new Player(h1, true);
+		Player p2=new Player(h1, false);
+		
+		//testing the score method
+		//System.out.println(p1.Score());
+		
+		
+		//testing the gethand method
+		//System.out.println(p1.getHand());
+		
+		//testing the printhand method
+		//p1.printHand();
+		
+		//testing ishuman method
+		//System.out.println(p1.isHuman());
+		System.out.println(p2.isHuman());
+	}
+
+}
