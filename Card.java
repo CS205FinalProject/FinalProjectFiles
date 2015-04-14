@@ -12,7 +12,7 @@ public class Card{
 		value=v;
 	}
 
-	public int getValue(Card card){
+	public int getValue(){
 		return value;
 	}
 

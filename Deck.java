@@ -49,6 +49,25 @@ public class Deck{
 		return topC;
 	}
 
+	public Hand createHand(Deck d){
+		Hand h = new Hand();
+		for (int i=0; i<4; i++) {
+			Card c = d.getTopCard();
+			h.add(c);
+		}
+		return h;
+	}
+
+	public int deckSize(){
+		return list.size();
+	}
+
+	public void printDeck(){
+		for (int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getValue());
+		}
+	}
+
 
 
 }
