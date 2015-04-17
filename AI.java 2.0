@@ -423,5 +423,13 @@ public class AIBasic
 
       
    }
+   public void ratatDecision()//I would make the decision based upon lack of unknowns and a score less than 10 or 3 unkowns and score of 5
+   {
+      boolean Decision = false;
+      if (numUnknowns = 0 && payer.getScore(AI) =< 9)
+      {
+         boolean Decision = true;
+      }
+   }
    
 }
