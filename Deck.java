@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class Deck{
-	private ArrayList<Card> list;
+	public ArrayList<Card> list;
 
 	//Constructor
 	public Deck(){
@@ -48,6 +48,11 @@ public class Deck{
 		list.remove(topC);
 		return topC;
 	}
+   
+   public void setTopCard(Card c)
+   {
+      list.add(0,c);
+   }
 
 	public Hand createHand(Deck d){
 		Hand h = new Hand();
@@ -67,6 +72,11 @@ public class Deck{
 			System.out.println(list.get(i).getValue());
 		}
 	}
+   
+   public void emptyDeck()
+   {
+      list = new ArrayList<Card>();
+   }
 
 
 
