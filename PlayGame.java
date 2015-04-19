@@ -170,7 +170,7 @@ class PlayGame {
       p1.setHuman(true);
       p1.setScore(0);
       p1.setInGame(true);
-      
+     
       p2.addHand(p2Hand);
       p2.setHuman(false);
       p2.setScore(0);
@@ -433,17 +433,17 @@ class PlayGame {
       //error checking 
       while(choice1 != 1 && choice1 != 2 && choice1 != 3 && choice1 != 4){
          System.out.println("Which player do you want to swap a card with 1, 2, 3, or 4: ");
-         int choice = keyboard.nextInt();
+         choice1 = keyboard.nextInt();
       
       }
       
       // player is prompted to ask which card in his hand does he want to swap with another player 
-      System.out.println("Which card in you hand do you want to use in you swap 1, 2, 3, or 4: ");
+      System.out.println("Which card in your hand do you want to use in your swap 1, 2, 3, or 4: ");
       int choice2 = keyboard.nextInt();
       
       //error checking 
       while(choice2 != 1 && choice2 != 2 && choice2 != 3 && choice2 != 4){
-         System.out.println("Which card in you hand do you want to use in you swap 1, 2, 3, or 4: ");
+         System.out.println("Which card in your hand do you want to use in your swap 1, 2, 3, or 4: ");
          choice2 = keyboard.nextInt();
       
       }
@@ -769,7 +769,9 @@ class PlayGame {
                gameDiscardPile.setTopCard(swapCard1);
                player.hand.remove(choice2);
                player.hand.add(currentCard);
-            }//end of if 
+            }else{
+                gameDiscardPile.setTopCard(currentCard);
+            }
      }else{
             Card currentCard = gameDeck.getTopCard();
             
@@ -809,6 +811,9 @@ class PlayGame {
                   player.hand.remove(choice4);
                   player.hand.add(currentCard);
                 }//end of if 
+                else{
+                gameDiscardPile.setTopCard(currentCard);
+                }
            }//end of else
      
            
