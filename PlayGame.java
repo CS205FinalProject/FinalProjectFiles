@@ -10,7 +10,7 @@ import java.util.*;
 class PlayGame {
 
    int roundNumber = 0; //field variable for keeping track of the round number
-   boolean gameOver = false; // variabel to kick out of game when final round is reached 
+   boolean gameOver = false; // variabel to kick out of game when final round is reached  
    int gameOverRound; // number of rounds that are suppose to be played before the game is over 
    boolean roundOver = false; 
    Player currPlayer;
@@ -314,21 +314,25 @@ class PlayGame {
       p1.addHand(p1Hand);
       p1.setHuman(true);
       p1.setScore(0);
+      p1.setName("player1");
      
       
       p2.addHand(p2Hand);
       p2.setHuman(false);
       p2.setScore(0);
+      p2.setName("player2");
       
       
       p3.addHand(p3Hand);
       p3.setHuman(false);
       p3.setScore(0);
+      p3.setName("player3");
       
       
       p4.addHand(p4Hand);
       p4.setHuman(false);
       p4.setScore(0);
+      p4.setName("player4");
       
       
       //Create Discard Pile
@@ -352,7 +356,7 @@ class PlayGame {
          while(!roundOver){
          
             System.out.println("------------------------");
-            System.out.println("Player 1 Score " + p1.score);
+            System.out.println("Player 1 Score " + p1.getScore());
             System.out.println("------------------------");
             System.out.println("Player 1 Hand ");
             p1.getHand().printHand();
@@ -362,25 +366,33 @@ class PlayGame {
             System.out.println("\n");
             
             if(p1.inGame == true){
-            drawCard(p1);
-            callRat(p1);
+               drawCard(p1);
+               if (callRat(p1)){
+                  break;
+               }
             }//end of if 
             
             if(p2.inGame == true){
-            drawCard(p2);
-            callRat(p2);
+               drawCard(p2);
+               if (callRat(p2)){
+                  break;
+               }
             }//end of if
             
             
             if(p3.inGame == true){
-            drawCard(p3);
-            callRat(p3);
+               drawCard(p3);
+               if (callRat(p3)){
+                  break;
+               }
             }//end of if
             
             
             if(p4.inGame == true){
-            drawCard(p4);
-            callRat(p4);
+               drawCard(p4);
+               if (callRat(p4)){
+                  break;
+               }
             }//end of if
          
          }//end of while
@@ -388,6 +400,7 @@ class PlayGame {
      System.out.println("RoundOver number "+ gameOverRound);
      System.out.println("Round number : " + roundNumber);
      System.out.println("Round Over"); 
+     scores();
      endOfGameRounds(roundNumber,gameOverRound);
      
      
@@ -683,7 +696,7 @@ class PlayGame {
    
    //method that decides how the game is ended. This method decides that the game is going to end by kicking a player out 
    //every rounds with the highest score until there is only one person left. 
-   public void endOfGameElimination(int roundStart,int roundNumber,Player p1, Player p2, Player p3, Player p4 ){
+   public void endOfGameElimination(){
       
       Player max = p1;
       
@@ -777,6 +790,7 @@ class PlayGame {
       
       gameDiscardPile.setTopCard(power);
       
+      System.out.println("["+player.getName()+"]");
       System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(0).getValue() +
       ", Or you can choose a face down card off the game deck. Type (D)iscard Pile or (G)ame Deck: ");
       
@@ -876,6 +890,7 @@ class PlayGame {
 
    public boolean callRat(Player player){
    
+   boolean ratRound = false; 
    
    // create a Scanner object for keyboard
    Scanner keyboard = new Scanner(System.in);
@@ -893,17 +908,123 @@ class PlayGame {
       
       if(choice1 == 'y' || choice1 == 'Y'){
          roundOver = true;
-      }
+         ratRound = true;
+         
+         //rat round based on which player made the call rat-a-tat-cat 
+         if(player.nameEqual(p1.getName())){
+            
+            //player 2 turn 
+            if(p2.inGame == true){
+               drawCard(p2);
+               
+            }
+            
+            //player 3 turn 
+            if(p3.inGame == true){
+               drawCard(p3);
+               
+            }
+            
+            //player 4 turn 
+            if(p4.inGame == true){
+               drawCard(p3);
+               
+             } 
       
       
+      }else if(player.nameEqual(p2.getName())){ 
+      
+            //player 3 turn 
+            if(p3.inGame == true){
+               drawCard(p3);
+               
+            }
+            
+            //player 4 turn 
+            if(p4.inGame == true){
+               drawCard(p4);
+               
+            }
+            
+            //player 1 turn 
+            if(p1.inGame == true){
+               drawCard(p1);
+               
+             }
+      }else if(player.nameEqual(p3.getName())){ 
+            
+            //player 4 turn 
+            if(p4.inGame == true){
+               drawCard(p4);
+               
+            }
+            
+            //player 1 turn 
+            if(p1.inGame == true){
+               drawCard(p1);
+               
+            }
+            
+            //player 2 turn 
+            if(p2.inGame == true){
+               drawCard(p2);
+               
+             }
+      }else if(player.nameEqual(p4.getName())){
+            
+            //player 1 turn 
+            if(p1.inGame == true){
+               drawCard(p1);
+               
+            }
+            
+            //player 2 turn 
+            if(p2.inGame == true){
+               drawCard(p2);
+               
+            }
+            
+            //player 3 turn 
+            if(p3.inGame == true){
+               drawCard(p3);
+               
+             }
+      }//end of checking which player called rat a tat cat 
     System.out.println("Next players turn!");
    
+   }//end of if for rat call 
+   
+    return ratRound; 
    }//End of call rat 
 
 
 
-//////////////////////////////////////////////////// Called Rat-a-tat-cat  /////////////////////////////////////////////////////////////
-
-
+//////////////////////////////////////////////////// Scores /////////////////////////////////////////////////////////////
+//This method is essentially the score board that is going to be printed at the end of each round 
+   public void scores(){
+   
+      System.out.println("------------------------");
+      System.out.println("[Scores]");
+      System.out.println("------------------------");
+      
+      if(p1.isInGame()){
+         System.out.println("Player 1: "+p1.getScore());
+      }
+      
+      if(p2.isInGame()){
+         System.out.println("Player 2: "+p2.getScore());
+      }
+      
+      if(p3.isInGame()){
+         System.out.println("Player 3: "+p3.getScore());
+      }
+      
+      if(p4.isInGame()){
+         System.out.println("Player 4: "+p4.getScore());
+      }
+      System.out.println("------------------------");
+      
+   
+   }//end of scores method 
    
 }//end of class 

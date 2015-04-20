@@ -11,6 +11,7 @@ public class Player{
 	int score;
 	boolean human;
    boolean inGame;
+   String name; 
 
 	public Player(Hand h, boolean p)
 	{
@@ -85,6 +86,27 @@ public class Player{
    public void setInGame(boolean x)
    {
       inGame = x; 
+   }
+   
+   public void setName(String name2)
+   {
+      name =  name2; 
+   }
+   
+   public String getName()
+   {
+      return name;
+   }
+   
+   public boolean nameEqual(String name2)
+   {
+      boolean equals = false; 
+      
+      if(name.compareToIgnoreCase(name2)== 0){
+         equals = true; 
+      }
+      
+      return equals; 
    }
    
    
