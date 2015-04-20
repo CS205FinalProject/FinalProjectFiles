@@ -17,6 +17,10 @@ public class Hand{
 	public void add(Card card){
 		hand.add(card);
 	}//add
+   
+   public void add(int x , Card card){
+		hand.add(x, card);
+	}//add
 	
 	public void printHand(){
 		for (int i=0; i<hand.size(); i++){

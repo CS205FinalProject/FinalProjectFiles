@@ -18,19 +18,29 @@ class PlayGame {
    Deck gameDiscardPile;
    
    
-   Player p1;
-   Player p2;
-   Player p3;
-   Player p4;
-
-   public static void main(String[] args) throws Exception {
-   
    Player p1 = new Player();
    Player p2 = new Player();
    Player p3 = new Player();
    Player p4 = new Player();
+
+   public static void main(String[] args) throws Exception {
    
-     PlayGame game = new PlayGame(p1,p2,p3,p4);
+     // create a Scanner object for keyboard
+      Scanner keyboard = new Scanner(System.in); 
+   
+      //player is addressed that he gets to swap one of the cards in his hand for the card in another players hand 
+      System.out.println("How many opponents do you want to play against, 1, 2, or 3: ");
+      int choice = keyboard.nextInt();
+      
+      //error checking 
+      while(choice != 1 && choice != 2 && choice != 3){
+         System.out.println("How many opponents do you want to play against, 1, 2, or 3: ");
+         choice = keyboard.nextInt();
+      
+      }
+
+   
+     PlayGame game = new PlayGame(choice);
       
    }//end of main 
    
@@ -39,7 +49,7 @@ class PlayGame {
    
    
    //constructor method for starting a game with two players
-   public PlayGame(Player p1, Player p2){
+  /* public PlayGame(Player p1, Player p2){
       
       // create a Scanner object for keyboard
       Scanner keyboard = new Scanner(System.in); 
@@ -245,13 +255,35 @@ class PlayGame {
     System.out.println("Game Over");
       
    
-   }//end of PlayGame
+   }//end of PlayGame*/
    
 
 //////////////////////////////////////////////////// Play Game 4 Players  /////////////////////////////////////////////////////////////
    
    //constructor method for starting a game with four players
-   public PlayGame(Player p1, Player p2, Player p3, Player p4){
+   public PlayGame(int x){
+      
+      if(x ==1){
+          p1.setInGame(true);
+          p2.setInGame(true);
+          p3.setInGame(false);
+          p4.setInGame(false);
+          
+          
+      }else if(x ==2){
+      
+          p1.setInGame(true);
+          p2.setInGame(true);
+          p3.setInGame(true);
+          p4.setInGame(false);
+      
+      }else{
+          p1.setInGame(true);
+          p2.setInGame(true);
+          p3.setInGame(true);
+          p4.setInGame(true);
+      
+      }
       
       roundNumber = 0;
       
@@ -282,22 +314,22 @@ class PlayGame {
       p1.addHand(p1Hand);
       p1.setHuman(true);
       p1.setScore(0);
-      p1.setInGame(true);
+     
       
       p2.addHand(p2Hand);
       p2.setHuman(false);
       p2.setScore(0);
-      p2.setInGame(true);
+      
       
       p3.addHand(p3Hand);
       p3.setHuman(false);
       p3.setScore(0);
-      p3.setInGame(true);
+      
       
       p4.addHand(p4Hand);
       p4.setHuman(false);
       p4.setScore(0);
-      p4.setInGame(true);
+      
       
       //Create Discard Pile
       gameDiscardPile = new Deck();
@@ -464,14 +496,17 @@ class PlayGame {
       
       
       if(choice1 == 2){
+         p1.printHand();
          Hand temp = p1.getHand();
          Card swapCard1 = temp.hand.get(choice2);
          Hand temp2 =p2.getHand();
          Card swapCard2 = temp2.hand.get(choice3); 
          p1.hand.remove(choice2);
          p1.hand.add(swapCard2);
+         //p1.hand.add(choice2,swapCard2);
          p2.hand.remove(choice3);
          p2.hand.add(swapCard1);
+         //p2.hand.add(choice4,swapCard1);
       }
       else if(choice1 ==3){
          Hand temp = p1.getHand();
@@ -480,8 +515,10 @@ class PlayGame {
          Card swapCard2 = temp2.hand.get(choice3); 
          p1.hand.remove(choice2);
          p1.hand.add(swapCard2);
+         ////p1.hand.add(choice2,swapCard2);
          p3.hand.remove(choice3);
          p3.hand.add(swapCard1);
+         //p3.hand.add(choice4,swapCard1);
       }
       else{
          Hand temp = p1.getHand();
@@ -490,8 +527,10 @@ class PlayGame {
          Card swapCard2 = temp2.hand.get(choice3);
          p1.hand.remove(choice2);
          p1.hand.add(swapCard2);
+         //p1.hand.add(choice2,swapCard2);
          p4.hand.remove(choice3);
          p4.hand.add(swapCard1); 
+         //p4.hand.add(choice4,swapCard1);
          
       }//end of else 
       
@@ -554,7 +593,7 @@ class PlayGame {
          Card swapCard1 = temp.hand.get(choice2);
          gameDiscardPile.setTopCard(swapCard1);
          player.hand.remove(choice2); 
-         player.hand.add(currentCard);
+         //player.hand.add(choice2,currentCard);
          
       
       }else if(choice1 == 'd' || choice1 == 'D'){
@@ -587,6 +626,7 @@ class PlayGame {
             gameDiscardPile.setTopCard(swapCard1);
             player.hand.remove(choice4);
             player.hand.add(currentCard);
+            //player.hand.add(choice4,currentCard);
       
          }//end of if 
          else if(choice3 == 'd' || choice3 == 'D'){
@@ -733,15 +773,18 @@ class PlayGame {
    
       // create a Scanner object for keyboard
       Scanner keyboard = new Scanner(System.in);
+      Card power = new Card(12);
       
-      System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(gameDiscardPile.list.size()-1).getValue() +
+      gameDiscardPile.setTopCard(power);
+      
+      System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(0).getValue() +
       ", Or you can choose a face down card off the game deck. Type (D)iscard Pile or (G)ame Deck: ");
       
       String choice = keyboard.nextLine();
       char choice1 = choice.charAt(0);
       
       while(choice1 != 'd' && choice1 != 'D'&& choice1 != 'g' && choice1 != 'G'){
-         System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(gameDiscardPile.list.size()-1).getValue() +
+         System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(0).getValue() +
       ", Or you can choose a face down card off the game deck. Type (D)iscard Pile or (G)ame Deck: ");
          choice = keyboard.nextLine();
          choice1 = choice.charAt(0);
@@ -769,6 +812,7 @@ class PlayGame {
                gameDiscardPile.setTopCard(swapCard1);
                player.hand.remove(choice2);
                player.hand.add(currentCard);
+               //player.hand.add(choice2,currentCard);
             }else{
                 gameDiscardPile.setTopCard(currentCard);
             }
@@ -810,6 +854,7 @@ class PlayGame {
                   gameDiscardPile.setTopCard(swapCard1);
                   player.hand.remove(choice4);
                   player.hand.add(currentCard);
+                  //player.hand.add(choice4,currentCard);
                 }//end of if 
                 else{
                 gameDiscardPile.setTopCard(currentCard);
@@ -829,7 +874,7 @@ class PlayGame {
  
 //This method is going to give the player the option to turn the round over variable to true to end the round 
 
-   public void callRat(Player player){
+   public boolean callRat(Player player){
    
    
    // create a Scanner object for keyboard
@@ -855,6 +900,9 @@ class PlayGame {
    
    }//End of call rat 
 
+
+
+//////////////////////////////////////////////////// Called Rat-a-tat-cat  /////////////////////////////////////////////////////////////
 
 
    
