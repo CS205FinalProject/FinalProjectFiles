@@ -53,7 +53,11 @@ public class Hand{
    {
       hand.remove(i);
    }
-   
+   public Card getCard(int i)
+   {
+      Card c = (hand.get(i));
+      return c;
+   }   
    public int getValue()
    {
       int x = 0;
