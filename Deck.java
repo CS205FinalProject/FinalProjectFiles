@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class Deck{
-	public ArrayList<Card> list;
+	private ArrayList<Card> list;
 
 	//Constructor
 	public Deck(){
@@ -42,42 +42,55 @@ public class Deck{
 			list.set(i,t2);
 		}	
 	}
-
-	public Card getTopCard(){
-		Card topC = list.get(0);
-		list.remove(topC);
-		return topC;
-	}
-   
-   public void setTopCard(Card c)
+   public void addCard(Card c)
    {
       list.add(0,c);
    }
-
-	public Hand createHand(Deck d){
-		Hand h = new Hand();
-		for (int i=0; i<4; i++) {
-			Card c = d.getTopCard();
-			h.add(c);
-		}
-		return h;
+	public Card getTopCard()
+   {
+		Card topC = list.get(0);
+		return topC;
 	}
-
-	public int deckSize(){
-		return list.size();
-	}
+   public void removeTopCard()
+   {
+      list.remove(0);
+   }
+   public void setTopCard(Card c)
+   {
+      if (list.size() != 0)
+      {
+         list.set(0,c);
+      }
+      else 
+      {
+         list.add(0,c);
+      }
+   }
 
 	public void printDeck(){
 		for (int i=0; i<list.size(); i++) {
 			System.out.println(list.get(i).getValue());
 		}
 	}
+   public boolean isEmpty()
+   {
+      if (list.size() == 0)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   
+   
    
    public void emptyDeck()
    {
       list = new ArrayList<Card>();
+      
    }
-
 
 
 }
