@@ -1,0 +1,660 @@
+public class AI1v1
+{
+   private Card card1;
+   private Card card2;
+   private Card card3;
+   private Card card4;
+   private Hand hand;
+   private Hand opHand;
+   private Deck deckStore;
+   private Deck discStore;
+   private int score; 
+   private int playerNumber;
+   private boolean draw2HasPlayed = false;
+   private boolean card1Known = false;
+   private boolean card2Known = false;
+   private boolean card3Known = false;
+   private boolean card4Known = false;
+   private boolean hasPlayed = false;
+   private int numUnknowns = 0;
+   private boolean ratatat = false;
+   private SwapTo swap;
+   
+   private Player p1;
+   private Player p2;
+   private Player p3;
+   private Player p4;
+   
+   
+   
+   public AI1v1(int pNumb, Player p1, Deck deck, Deck disc)
+   {
+      playerNumber = pNumb;
+      deckStore = deck;
+      discStore = disc;
+      opHand = p1.getHand();
+      
+      
+   }
+   public void setHand(Hand h)
+   {
+   hand = h;
+   card1 = hand.getCard(0);
+   hand.getCard(0).setKnown(true);
+   card2 = hand.getCard(1);
+   card3 = hand.getCard(2);
+   card4 = hand.getCard(3);
+   hand.getCard(3).setKnown(true);
+   
+   card1Known = true;
+   card4Known = true;
+   numUnknowns = 2;
+   
+   }
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND  
+//GET HAND   
+   public Hand getHand()
+   {
+      Hand rtrnHand = hand;
+      return rtrnHand;
+   }
+   public Hand getOpHand1()
+   {
+      return opHand;
+   }
+   public int getScore()
+   {
+      return score;
+   }
+   public boolean getRat()
+   {
+      return ratatat;  
+   }
+   public Deck getDeckStore()
+   {
+      return deckStore;
+   }
+   public Deck getDiscStore()
+   {
+      return discStore;
+   }
+   public SwapTo getSwap()
+   {
+      return swap;
+   }
+   public Hand getOpHand()
+   {
+         return opHand;
+   }
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD
+//COMPARE CARD//COMPARE CARD
+//COMPARE CARD
+
+   
+   public Card compareCard(Card Newcard)//compares a card to the cards in the players hand
+   {
+      if (((Newcard.getValue() <= card1.getValue()) && (card1Known = true)))//checks if new card is less than the
+      {            
+
+            System.out.println("less than card1 " + card1Known);
+            return card1;   
+      }
+      else if (((Newcard.getValue() <= card2.getValue()) && (card2Known = true)))
+      {     
+            System.out.println("less than card2 " + card2Known);
+            return card2;    
+      }
+      else if (((Newcard.getValue() <= card3.getValue()) && (card3Known = true)))
+      {
+            System.out.println("less than card3 " + card3Known);
+            return card3;
+      }
+      else if (((Newcard.getValue() <= card4.getValue()) && (card4Known = true)))
+      {
+            System.out.println("less than card4 " + card4Known);
+            return card4;
+      }
+      else if ((Newcard.getValue() > 9 ) || (Newcard.getValue() < 13))// >13 indicates its a power card
+      {
+         System.out.println(Newcard.getValue());
+         return Newcard;
+      }
+      else
+      {
+         
+         return Newcard;
+      }
+   }
+//DRAWAI   
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+//DRAWAI 
+
+   //dealing with the draw pile for the computer AI
+   public void drawAI(Deck draw,Deck disc,Player p1)
+   {
+	   Card drawTop;
+	   Deck discard = disc;
+	   //compare method for comparison
+	   drawTop=compareCard(draw.getTopCard());
+	   
+	   
+	   if (drawTop.getValue()==card1.getValue())
+	   {
+		   Card placeHolder=card1;
+		   System.out.println("going into Card 1");
+		   card1=draw.getTopCard();
+		   hand.setCard(0, card1);
+		   card1Known=true;
+		   hasPlayed=true;
+         draw2HasPlayed = true;
+		   //adding the removed card to the discard pile from the draw pile
+		   discard.addCard(placeHolder);
+         draw.removeTopCard();
+         swap.setFalse(playerNumber, card1);
+	   }
+	   else if (drawTop.getValue()==card2.getValue())
+	   {
+		   Card placeHolder=card2;
+		   System.out.println("going into Card 2");
+		   card2=draw.getTopCard();
+		   hand.setCard(1, card2);
+		   card2Known=true;
+		   hasPlayed=true;
+         draw2HasPlayed = true;
+		   //adding the removed card to the discard pile from the draw pile
+		   discard.addCard(placeHolder);
+         draw.removeTopCard();
+         swap.setFalse(playerNumber, card2);
+	   }
+	   else if (drawTop.getValue()==card3.getValue())
+	   {
+		   Card placeHolder=card3;
+		   System.out.println("going into Card 3");
+		   card3=draw.getTopCard();
+		   hand.setCard(2, card3);
+		   card3Known=true;
+		   hasPlayed=true;
+         draw2HasPlayed = true;
+		   //adding the removed card to the discard pile from the draw pile
+		   discard.addCard(placeHolder);
+         draw.removeTopCard();
+         swap.setFalse(playerNumber, card3);
+	   }
+	   else if (drawTop.getValue()==card4.getValue())
+	   {
+		   Card placeHolder=card4;
+		   System.out.println("going into Card 4");
+		   card4=draw.getTopCard();
+		   hand.setCard(3, card4);
+		   card4Known=true;
+		   hasPlayed=true;
+         draw2HasPlayed = true;
+		   //adding the removed card to the discard pile from the draw pile
+		   discard.addCard(placeHolder);
+         draw.removeTopCard();
+         swap.setFalse(playerNumber, card4);
+	   }
+	   else if (draw.getTopCard().getValue() < 4  && numUnknowns > 0)//all their cards are less than the top, but they have unknowns.
+      {
+          for (int i=0; i<3; i++)//this loop replaces that card with the first unknown
+          {
+             if ((hand.getCard(i).isKnown() == false) || (hand.getCard(i).getValue() > 9))
+             {
+                Card placeHolder = new Card(0);
+                if (i == 0)
+                {
+                
+                  placeHolder = card1;
+                  card1 = draw.getTopCard();
+                  card1Known=true;
+                }
+                else if (i == 1)
+                {
+                  placeHolder = card2;
+                  card2 = draw.getTopCard();
+                  card2Known=true;
+                }
+                else if (i == 2)
+                {
+                  placeHolder = card3;
+                  card3 = draw.getTopCard();
+                  card3Known=true;
+                }
+                else if (i == 3)
+                {
+                  placeHolder = card4;
+                  card4 = draw.getTopCard();
+                  card4Known=true;
+                }
+                
+                System.out.println("goint into card "+ i);
+                hand.setCard(i,draw.getTopCard());
+                
+                //adding the removed card to the discard pile from the draw pile
+     		       discard.addCard(placeHolder);
+                draw.removeTopCard();
+                i = 3;
+                hasPlayed = true;
+                draw2HasPlayed = true;
+                swap.setFalse(playerNumber, hand.getCard(i));
+                
+              }
+            }
+        }
+      else if (draw.getTopCard().getValue() > 9)
+      {
+            if (draw.getTopCard().getValue() == 10)
+            {
+               peakAI(draw,discard);
+               System.out.println("peaking");
+               hasPlayed = true;
+               draw2HasPlayed = true;
+            }
+            else if (draw.getTopCard().getValue() == 11)
+            {
+               System.out.println("draw 2");
+               discard.setTopCard(draw.getTopCard());
+               draw.removeTopCard();
+               hasPlayed = true;
+               draw2HasPlayed = true;
+            }
+            else if (draw.getTopCard().getValue() == 12)
+            {
+               System.out.println("Swap");
+               discard.setTopCard(draw.getTopCard());
+               draw.removeTopCard();
+               swapAI(draw,discard,p1);
+               hasPlayed = true;
+               draw2HasPlayed = true;
+            }
+      }
+      deckStore = draw;
+      discStore = discard;
+}
+//discardAI  
+//discardAI 
+//discardAI 
+//discardAI 
+//discardAI 
+//discardAI 
+//discardAI 
+//discardAI 
+//discardAI 
+                  
+   public void discardAI(Deck discard)//this figures out the first possible move the player might make
+   {
+      if ((discard.isEmpty() == false) && (discard.getTopCard().getValue() > 9))
+      {
+         Card discardTop;
+         discardTop = compareCard(discard.getTopCard());//runs the compare card method
+      
+         if (discardTop.getValue() == card1.getValue())
+         {
+            Card placeHolder = discard.getTopCard();//takes the top card of the discard and replaces it
+            System.out.println("going into card 1");
+            discard.setTopCard(hand.getCard(0));    //with the card in that players hand
+            card1 = placeHolder;
+            hand.setCard(0, placeHolder);
+            card1Known = true;
+            hasPlayed = true;//triggers the end of the turn
+
+            swap.setTrue(playerNumber, card1);
+         }
+         else if (discardTop.getValue() == card2.getValue())
+         {
+            Card placeHolder = discard.getTopCard();//same as above just with card2
+            System.out.println("goint into card 2");
+            discard.setTopCard(hand.getCard(1));
+            card2 = placeHolder;
+            hand.setCard(1, placeHolder);
+            card2Known = true;
+            hasPlayed = true;
+            swap.setTrue(playerNumber, card2);
+         }
+         else if (discardTop.getValue() == card3.getValue())//same as above but with card3
+         {
+            Card placeHolder = discard.getTopCard();
+            System.out.println("goint into card 3");
+            discard.setTopCard(hand.getCard(2));
+            card3 = placeHolder;
+            hand.setCard(2, placeHolder);
+            card3Known = true;
+            hasPlayed = true;
+            swap.setTrue(playerNumber, card3);
+         }
+         else if (discardTop.getValue() == card4.getValue())//same as above but with card4
+         {
+            Card placeHolder = discard.getTopCard();
+            System.out.println("goint into card 4");
+            discard.setTopCard(hand.getCard(3));
+            card1 = placeHolder;
+            hand.setCard(3, placeHolder);
+            card4Known = true;
+            hasPlayed = true;
+            swap.setTrue(playerNumber, card4);
+         }
+         else if (discard.getTopCard().getValue() < 4  && numUnknowns > 0)//all their cards are less than the top, but they have unknowns.
+         {
+            for (int i=0; i<3; i++)//this loop replaces that card with the first unknown
+            {
+               if ((hand.getCard(i).isKnown() == false) || (hand.getCard(i).getValue() > 9))
+               {
+                  if (i == 0)
+                  {
+                    card1 = discard.getTopCard();
+                    card1Known=true;
+                  }
+                  else if (i == 1)
+                  {
+                    card2 = discard.getTopCard();
+                    card2Known=true;
+                  }
+                  else if (i == 2)
+                  {
+                    card3 = discard.getTopCard();
+                    card3Known=true;
+                  }
+                    else if (i == 3)
+                  {
+                    card4 = discard.getTopCard();
+                    card4Known=true;
+                  }   
+                  
+                  Card placeHolder = discard.getTopCard();
+                  System.out.println("going into card "+ i);
+                  discard.setTopCard(hand.getCard(i));
+                  hand.setCard(i,placeHolder);
+                  i = 3;
+                  hasPlayed = true;
+                  swap.setTrue(playerNumber, hand.getCard(i));
+                  
+                  }
+            }
+         }
+ 
+      }
+      
+      discStore = discard;
+   
+      
+   }
+//PEAK AI     
+//PEAK AI     
+//PEAK AI   
+//PEAK AI  
+//PEAK AI     
+//PEAK AI     
+//PEAK AI     
+   public void peakAI(Deck deck, Deck discard)
+   {
+      if (card1Known == false)
+      {
+         card1Known = true;
+         discard.addCard(deck.getTopCard());
+         deck.removeTopCard();
+         
+      }
+      else if (card2Known == false)
+      {
+         card2Known = true;
+         discard.addCard(deck.getTopCard());
+         deck.removeTopCard();
+      }
+      else if (card3Known == false)
+      {
+         card3Known = true;
+         discard.addCard(deck.getTopCard());
+         deck.removeTopCard();
+      }
+      else if (card4Known == false)
+      {
+         card4Known = true;
+         discard.addCard(deck.getTopCard());
+         deck.removeTopCard();
+      }
+      else
+      {
+         discard.addCard(deck.getTopCard());
+         deck.removeTopCard();
+      }
+   }
+//DRAW2AI
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI //DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI //DRAW2AI 
+//DRAW2AI 
+//DRAW2AI 
+//DRAW2AI //DRAW2AI 
+   
+   
+   
+   public void draw2AI(Deck deck,Deck disc,Player p)
+   {  
+      draw2HasPlayed = false;
+      int counter = 0; 
+      while (draw2HasPlayed == false)
+      {
+         drawAI(deck,disc,p);
+         counter = counter++;
+         if (counter == 2)
+         {
+            draw2HasPlayed = true;
+         }
+      
+      }
+   }
+   
+   
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI
+//SWAPAI//SWAPAI
+//SWAPAI   
+//SWAPAI   
+   public void swapAI(Deck deck,Deck discard,Player p1)
+   {
+      boolean hasSwapped = false;
+      if (numUnknowns == 0)
+      {
+         
+        
+         hasSwapped = true;
+      }
+      else
+      {
+         swap.sortList(playerNumber);
+         Card swapPH1;
+         swapPH1 = swap.getBestSwap();
+         System.out.println("Best swap is " + swapPH1.getValue() + " and its location is " + swapPH1.getLocation());
+         if ((card1Known = false) && (swap.getBestSwap() != null))
+         {
+            
+            if (swap.getTarget() == 1)
+            {
+               p1.getHand().setCard(swapPH1.getLocation(),card1);
+               card1 = swapPH1;
+               card1Known = true;
+               hand.setCard(0,card1);
+               hasSwapped = true; 
+            }
+            else if (swap.getBestSwap() == null)
+            {
+               
+               
+            }
+         }
+         else if ((card2Known == false) && (swap.getBestSwap() != null))
+         {
+            if (swap.getTarget() == 1)
+            {
+
+               p1.getHand().setCard(swapPH1.getLocation(),card2);
+               card2 = swapPH1;
+               card2Known = true;
+               hand.setCard(1,card2); 
+               hasSwapped = true; 
+            }
+            else if (swap.getBestSwap() == null)
+            {
+              
+               
+            }
+
+         }
+         else if ((card3Known = false) && (swap.getBestSwap() != null))
+         {
+            if (swap.getTarget() == 1)
+            {
+               p1.getHand().setCard(swapPH1.getLocation(),card3);
+               card3 = swapPH1;
+               card3Known = true;
+               hand.setCard(2,card3); 
+               hasSwapped = true; 
+            }
+            else if (swap.getBestSwap() == null)
+            {
+               
+               
+            }
+
+         }
+         else if ((card4Known = false) && (swap.getBestSwap() != null))
+         {
+            if (swap.getTarget() == 1)
+            {
+               p1.getHand().setCard(swapPH1.getLocation(),card4);
+               card4 = swapPH1;
+               card4Known = true;
+               hand.setCard(3,card4);
+               hasSwapped = true;  
+            }
+            else if (swap.getBestSwap() == null)
+            {
+               
+               
+            }
+
+         }
+      }
+   
+   
+   
+   }
+   public void runTurn(Player p1, Deck deck, Deck disc, SwapTo swp)//AI turn
+   {
+      
+      hasPlayed = false;
+      swap = swp;
+      discardAI(disc);
+      if (hasPlayed == false)
+      {
+         drawAI(deck,disc,p1);
+      }
+      ratatDecision();
+      
+    
+
+      
+   }
+   public void ratatDecision()//I would make the decision based upon lack of unknowns and a score less than 10 or 3 unkowns and score of 5
+   {
+      boolean decision = false;
+      calculateScore();
+      if ((numUnknowns == 0) && (score <= 9))
+      {
+         decision = true;
+      }
+      ratatat = decision;
+   }  
+   
+   public void calculateScore()
+   {
+      int sum = 0;
+      if (card1Known = true)
+      {
+         sum = sum + card1.getValue();
+      }
+      if (card2Known = true)
+      {
+         sum = sum + card2.getValue();
+      }
+      if (card3Known = true)
+      {
+         sum = sum + card3.getValue();
+      }
+      if (card4Known = true)
+      {
+         sum = sum + card4.getValue();
+      }
+      
+      score = sum;
+      
+   }
+   
+   
+}//end
+
+/* need to make some getters. getOpponentHand(int i) int i will be their player number
+we need a getDeck method, and a getDiscard Method. oh and a getSwapTo method
+
+The AI turn needs the following info in its AI turn method:
+
+all players, the deck, the discard, and the swap. 
+
+Whats LEFT to do: Update playGame method, connect it to gui, tidy up AI.
+
+*/
