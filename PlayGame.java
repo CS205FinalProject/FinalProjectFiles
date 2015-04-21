@@ -26,9 +26,9 @@ class PlayGame {
    public static void main(String[] args) throws Exception {
    
      // create a Scanner object for keyboard
-      Scanner keyboard = new Scanner(System.in); 
-   
-      //player is addressed that he gets to swap one of the cards in his hand for the card in another players hand 
+      Scanner keyboard = new Scanner(System.in);
+      
+      
       System.out.println("How many opponents do you want to play against, 1, 2, or 3: ");
       int choice = keyboard.nextInt();
       
@@ -37,10 +37,33 @@ class PlayGame {
          System.out.println("How many opponents do you want to play against, 1, 2, or 3: ");
          choice = keyboard.nextInt();
       
+      } 
+      
+      //user decides how he wants the end of the game to happen 
+      System.out.println("There are three styles to how this game can end.");
+      System.out.println("0. Define the number of rounds that the game will play."); 
+      System.out.println("1. decide what round players will start to be eliminated based on who has the high score.");
+      System.out.println("2. Define how much time you want to play and when the time is up the winner will be decided.");
+      System.out.println("So which style of game would you like to play? 0, 1 , or 2: ");
+      int choice1 = keyboard.nextInt();
+      
+      //error checking 
+      while(choice1 != 0 && choice1 != 1 && choice1 != 2){
+         System.out.println("There are three styles to how this game can end.");
+         System.out.println("0. Define the number of rounds that the game will play."); 
+         System.out.println("1. decide what round players will start to be eliminated based on who has the high score.");
+         System.out.println("2. Define how much time you want to play and when the time is up the winner will be decided.");
+         System.out.println("So which style of game would you like to play? 0, 1 , or 2: ");
+         choice1 = keyboard.nextInt();
+      
       }
+      
+      int gameStyle = choice1;
+   
+      
 
    
-     PlayGame game = new PlayGame(choice);
+     PlayGame game = new PlayGame(choice,choice1);
       
    }//end of main 
    
@@ -261,7 +284,7 @@ class PlayGame {
 //////////////////////////////////////////////////// Play Game 4 Players  /////////////////////////////////////////////////////////////
    
    //constructor method for starting a game with four players
-   public PlayGame(int x){
+   public PlayGame(int x, int gameStyle){
       
       if(x ==1){
           p1.setInGame(true);
@@ -314,25 +337,25 @@ class PlayGame {
       p1.addHand(p1Hand);
       p1.setHuman(true);
       p1.setScore(0);
-      p1.setName("player1");
+      p1.setName("Player One");
      
       
       p2.addHand(p2Hand);
       p2.setHuman(false);
       p2.setScore(0);
-      p2.setName("player2");
+      p2.setName("Player Two");
       
       
       p3.addHand(p3Hand);
       p3.setHuman(false);
       p3.setScore(0);
-      p3.setName("player3");
+      p3.setName("Player Three");
       
       
       p4.addHand(p4Hand);
       p4.setHuman(false);
       p4.setScore(0);
-      p4.setName("player4");
+      p4.setName("Player Four");
       
       
       //Create Discard Pile
@@ -340,71 +363,210 @@ class PlayGame {
       gameDiscardPile.emptyDeck();
       gameDiscardPile.setTopCard(gameDeck.getTopCard());
       
-      
-      System.out.println("How many Rounds would you like this game to last");
-      int choice = keyboard.nextInt();
-      
-      while( choice <1 || choice>99){
+      if(gameStyle == 0){
+         System.out.println("You have chosen Game Style 0");
          System.out.println("How many Rounds would you like this game to last");
-         choice = keyboard.nextInt();
-      
-      }
-      gameOverRound = choice;
-      
-      while(!gameOver){
-            roundOver = false;
-         while(!roundOver){
+         int choice = keyboard.nextInt();
          
-            System.out.println("------------------------");
-            System.out.println("Player 1 Score " + p1.getScore());
-            System.out.println("------------------------");
-            System.out.println("Player 1 Hand ");
-            p1.getHand().printHand();
-            System.out.println("------------------------");
-            System.out.println("Player 1 Human "+p1.human); 
-            System.out.println("Player 1 In Game " +p1.inGame);   
-            System.out.println("\n");
-            
-            if(p1.inGame == true){
-               drawCard(p1);
-               if (callRat(p1)){
-                  break;
-               }
-            }//end of if 
-            
-            if(p2.inGame == true){
-               drawCard(p2);
-               if (callRat(p2)){
-                  break;
-               }
-            }//end of if
-            
-            
-            if(p3.inGame == true){
-               drawCard(p3);
-               if (callRat(p3)){
-                  break;
-               }
-            }//end of if
-            
-            
-            if(p4.inGame == true){
-               drawCard(p4);
-               if (callRat(p4)){
-                  break;
-               }
-            }//end of if
+         while( choice <1 || choice>99){
+            System.out.println("How many Rounds would you like this game to last");
+            choice = keyboard.nextInt();
          
-         }//end of while
-     roundNumber = roundNumber+1; 
-     System.out.println("RoundOver number "+ gameOverRound);
-     System.out.println("Round number : " + roundNumber);
-     System.out.println("Round Over"); 
-     scores();
-     endOfGameRounds(roundNumber,gameOverRound);
-     
-     
-    }//end of gameOver While loop   
+         }
+         gameOverRound = choice;
+         
+         while(!gameOver){
+               roundOver = false;
+            while(!roundOver){
+            
+               System.out.println("------------------------");
+               System.out.println("Player 1 Score " + p1.getScore());
+               System.out.println("------------------------");
+               System.out.println("Player 1 Hand ");
+               p1.getHand().printHand();
+               System.out.println("------------------------");
+               System.out.println("Player 1 Human "+p1.human); 
+               System.out.println("Player 1 In Game " +p1.inGame);   
+               System.out.println("\n");
+               
+               if(p1.isInGame() == true){
+                  drawCard(p1);
+                  if (callRat(p1)){
+                     break;
+                  }
+               }//end of if 
+               
+               if(p2.isInGame() == true){
+                  drawCard(p2);
+                  if (callRat(p2)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p3.isInGame() == true){
+                  drawCard(p3);
+                  if (callRat(p3)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p4.isInGame() == true){
+                  drawCard(p4);
+                  if (callRat(p4)){
+                     break;
+                  }
+               }//end of if
+            
+            }//end of while
+        roundNumber = roundNumber+1; 
+        System.out.println("RoundOver number "+ gameOverRound);
+        System.out.println("Round number : " + roundNumber);
+        System.out.println("Round Over"); 
+        scores();
+        endOfGameRounds(roundNumber,gameOverRound);
+        
+        
+       }//end of gameOver While loop
+       
+    }else if(gameStyle ==1){
+    
+         System.out.println("You have chosen Game Style 1");
+         System.out.println("How many Rounds would you like this game to last before player begin to be eliminated.");
+         int choice = keyboard.nextInt();
+         
+         while( choice <1 || choice>99){
+            System.out.println("How many Rounds would you like this game to last before player begin to be eliminated.");
+            choice = keyboard.nextInt();
+         
+         }
+         gameOverRound = choice;
+         
+         while(!gameOver){
+               roundOver = false;
+            while(!roundOver){
+            
+               System.out.println("------------------------");
+               System.out.println("Player 1 Score " + p1.getScore());
+               System.out.println("------------------------");
+               System.out.println("Player 1 Hand ");
+               p1.getHand().printHand();
+               System.out.println("------------------------");
+               System.out.println("Player 1 Human "+p1.human); 
+               System.out.println("Player 1 In Game " +p1.inGame);   
+               System.out.println("\n");
+               
+               if(p1.isInGame() == true){
+                  drawCard(p1);
+                  if (callRat(p1)){
+                     break;
+                  }
+               }//end of if 
+               
+               if(p2.isInGame() == true){
+                  drawCard(p2);
+                  if (callRat(p2)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p3.isInGame() == true){
+                  drawCard(p3);
+                  if (callRat(p3)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p4.isInGame() == true){
+                  drawCard(p4);
+                  if (callRat(p4)){
+                     break;
+                  }
+               }//end of if
+            
+            }//end of while
+        roundNumber = roundNumber+1; 
+        System.out.println("RoundOver number "+ gameOverRound);
+        System.out.println("Round number : " + roundNumber);
+        System.out.println("Round Over"); 
+        scores();
+        endOfGameElimination();
+        
+     }//end of game over while
+    
+    }else if(gameStyle ==2){
+    
+         System.out.println("You have chosen Game Style 2");
+         System.out.println("How much time would you like the game to last in minutes?");
+         int choice = keyboard.nextInt();
+         
+         while( choice <1 || choice>60){
+            System.out.println("How much time would you like the game to last in minutes?");
+            choice = keyboard.nextInt();
+         
+         }
+         
+         
+         for(int i=0;i<2;i++){
+               roundOver = false;
+            while(!roundOver){
+            
+               System.out.println("------------------------");
+               System.out.println("Player 1 Score " + p1.getScore());
+               System.out.println("------------------------");
+               System.out.println("Player 1 Hand ");
+               p1.getHand().printHand();
+               System.out.println("------------------------");
+               System.out.println("Player 1 Human "+p1.human); 
+               System.out.println("Player 1 In Game " +p1.inGame);   
+               System.out.println("\n");
+               
+               if(p1.isInGame() == true){
+                  drawCard(p1);
+                  if (callRat(p1)){
+                     break;
+                  }
+               }//end of if 
+               
+               if(p2.isInGame() == true){
+                  drawCard(p2);
+                  if (callRat(p2)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p3.isInGame() == true){
+                  drawCard(p3);
+                  if (callRat(p3)){
+                     break;
+                  }
+               }//end of if
+               
+               
+               if(p4.isInGame() == true){
+                  drawCard(p4);
+                  if (callRat(p4)){
+                     break;
+                  }
+               }//end of if
+            
+            }//end of while
+        roundNumber = roundNumber+1; 
+        System.out.println("RoundOver number "+ gameOverRound);
+        System.out.println("Round number : " + roundNumber);
+        System.out.println("Round Over"); 
+        scores();
+        endOfGameElimination();
+    }//end of for   
+    
+   }//end of game style 2 
+    if(gameStyle ==1){
+      winnerElimination();
+    }
     System.out.println("Game Over");
    }//end of PlayGame
    
@@ -509,17 +671,14 @@ class PlayGame {
       
       
       if(choice1 == 2){
-         p1.printHand();
          Hand temp = p1.getHand();
          Card swapCard1 = temp.hand.get(choice2);
          Hand temp2 =p2.getHand();
          Card swapCard2 = temp2.hand.get(choice3); 
          p1.hand.remove(choice2);
-         p1.hand.add(swapCard2);
-         //p1.hand.add(choice2,swapCard2);
+         p1.hand.add(choice2,swapCard2);
          p2.hand.remove(choice3);
-         p2.hand.add(swapCard1);
-         //p2.hand.add(choice4,swapCard1);
+         p2.hand.add(choice3,swapCard1);
       }
       else if(choice1 ==3){
          Hand temp = p1.getHand();
@@ -527,11 +686,9 @@ class PlayGame {
          Hand temp2 =p3.getHand();
          Card swapCard2 = temp2.hand.get(choice3); 
          p1.hand.remove(choice2);
-         p1.hand.add(swapCard2);
-         ////p1.hand.add(choice2,swapCard2);
+         p1.hand.add(choice2,swapCard2);
          p3.hand.remove(choice3);
-         p3.hand.add(swapCard1);
-         //p3.hand.add(choice4,swapCard1);
+         p3.hand.add(choice3,swapCard1);
       }
       else{
          Hand temp = p1.getHand();
@@ -539,11 +696,9 @@ class PlayGame {
          Hand temp2 =p4.getHand();
          Card swapCard2 = temp2.hand.get(choice3);
          p1.hand.remove(choice2);
-         p1.hand.add(swapCard2);
-         //p1.hand.add(choice2,swapCard2);
+         p1.hand.add(choice2,swapCard2);
          p4.hand.remove(choice3);
-         p4.hand.add(swapCard1); 
-         //p4.hand.add(choice4,swapCard1);
+         p4.hand.add(choice3,swapCard1);
          
       }//end of else 
       
@@ -605,8 +760,7 @@ class PlayGame {
          Hand temp = player.getHand();
          Card swapCard1 = temp.hand.get(choice2);
          gameDiscardPile.setTopCard(swapCard1);
-         player.hand.remove(choice2); 
-         //player.hand.add(choice2,currentCard);
+         player.hand.add(choice2,currentCard);
          
       
       }else if(choice1 == 'd' || choice1 == 'D'){
@@ -638,8 +792,7 @@ class PlayGame {
             Card swapCard1 = temp.hand.get(choice4);
             gameDiscardPile.setTopCard(swapCard1);
             player.hand.remove(choice4);
-            player.hand.add(currentCard);
-            //player.hand.add(choice4,currentCard);
+            player.hand.add(choice4,currentCard);
       
          }//end of if 
          else if(choice3 == 'd' || choice3 == 'D'){
@@ -698,34 +851,56 @@ class PlayGame {
    //every rounds with the highest score until there is only one person left. 
    public void endOfGameElimination(){
       
-      Player max = p1;
       
       
-      ArrayList<Player> all = new ArrayList<Player>(4);
-      ArrayList<Player> game = new ArrayList<Player>(4);
-      all.add(p1);
-      all.add(p2);
-      all.add(p3);
-      all.add(p4);
-       
+      if(roundNumber >= gameOverRound){
       
-      for(Player object: all){
-         if(object.isInGame() == true){
-            game.add(object);
-         }//end of if
-      }//end of for 
-      
-      for(Player object: game){
+         ArrayList<Player> all = new ArrayList<Player>(4);
+         ArrayList<Player> game = new ArrayList<Player>(4);
+         all.add(p1);
+         all.add(p2);
+         all.add(p3);
+         all.add(p4);
+          
          
-         if(object.getScore() > max.getScore()){
+         for(Player object: all){
+            if(object.isInGame()){
+               game.add(object);
+            }//end of if
+         }//end of for 
+         
+         Player max = new Player(game.get(0));
+         
+         for(Player object: game){
             
-            max = object; 
+            if(object.getScore() >= max.getScore()){
+               
+               max.update(object); 
+            }
+            
+         
          }
-      
-      }
-      
-      max.setInGame(false); 
-      
+         
+         
+         
+         if(max.nameEqual(p1.getName())==true){
+            p1.setInGame(false);
+            System.out.println(p1.getName()+" has been eliminated from the game.");
+         }else if(max.nameEqual(p2.getName())==true){
+            p2.setInGame(false);
+            System.out.println(p2.getName()+" has been eliminated from the game.");
+         }else if(max.nameEqual(p3.getName())== true){
+            p3.setInGame(false);
+            System.out.println(p3.getName()+" has been eliminated from the game.");
+         }else if(max.nameEqual(p4.getName())== true){
+            p4.setInGame(false);
+            System.out.println(p4.getName()+" has been eliminated from the game.");
+         }
+         
+         if(game.size()==2){
+            gameOver=true; 
+         }
+     }//end of if for round to start eliminating players  
       
       
       
@@ -825,8 +1000,7 @@ class PlayGame {
                Card swapCard1 = temp.hand.get(choice2);
                gameDiscardPile.setTopCard(swapCard1);
                player.hand.remove(choice2);
-               player.hand.add(currentCard);
-               //player.hand.add(choice2,currentCard);
+               player.hand.add(choice2,currentCard);
             }else{
                 gameDiscardPile.setTopCard(currentCard);
             }
@@ -867,8 +1041,7 @@ class PlayGame {
                   Card swapCard1 = temp.hand.get(choice4);
                   gameDiscardPile.setTopCard(swapCard1);
                   player.hand.remove(choice4);
-                  player.hand.add(currentCard);
-                  //player.hand.add(choice4,currentCard);
+                  player.hand.add(choice4,currentCard);
                 }//end of if 
                 else{
                 gameDiscardPile.setTopCard(currentCard);
@@ -927,7 +1100,7 @@ class PlayGame {
             
             //player 4 turn 
             if(p4.inGame == true){
-               drawCard(p3);
+               drawCard(p4);
                
              } 
       
@@ -1027,4 +1200,34 @@ class PlayGame {
    
    }//end of scores method 
    
+   
+   //////////////////////////////////////////////////// Winner Elimination Method   /////////////////////////////////////////////////////////////   
+//This method checks to see who won the game when the play an elimination game style and then prints out to the user who the winner of the game is.
+   public void winnerElimination(){
+      
+      System.out.println("**************************");
+      
+      if(p1.isInGame()){
+         System.out.println("Winner: Player 1");
+         System.out.println("Score: "+p1.getScore());
+         
+      }
+      
+      if(p2.isInGame()){
+         System.out.println("Winner: Player 2");
+         System.out.println("Score: "+p2.getScore());;
+      }
+      
+      if(p3.isInGame()){
+         System.out.println("Winner: Player 3");
+         System.out.println("Score: "+p3.getScore());
+      }
+      
+      if(p4.isInGame()){
+         System.out.println("Winner: Player 4");
+         System.out.println("Score: "+p4.getScore());
+      }
+      System.out.println("**************************");
+      
+   }//end of winnerElimination method 
 }//end of class 

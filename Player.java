@@ -12,6 +12,7 @@ public class Player{
 	boolean human;
    boolean inGame;
    String name; 
+   
 
 	public Player(Hand h, boolean p)
 	{
@@ -27,10 +28,12 @@ public class Player{
 	
    public Player(Player object)
    {
+      
       hand = object.hand;
       score = object.score;
       human = object.human;
       inGame = object.inGame;
+      name = object.name;
       
       getScore();
       
@@ -101,12 +104,23 @@ public class Player{
    public boolean nameEqual(String name2)
    {
       boolean equals = false; 
-      
-      if(name.compareToIgnoreCase(name2)== 0){
+      String comparer = name2; 
+      if(name.equalsIgnoreCase(comparer)){
          equals = true; 
       }
       
       return equals; 
+   }
+   
+   public void update(Player object)
+   {
+      hand = object.hand;
+      score = object.score;
+      human = object.human;
+      inGame = object.inGame;
+      name = object.name;
+      
+      getScore();
    }
    
    
