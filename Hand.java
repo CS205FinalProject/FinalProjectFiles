@@ -15,7 +15,10 @@ public class Hand{
 	}//Constructor
 	
 	public void add(Card card){
-		hand.add(card);
+		
+		int loc = hand.size();
+      		card.setLocation(loc);
+      		hand.add(card);
 	}//add
    
    public void add(int x , Card card){
@@ -27,7 +30,12 @@ public class Hand{
 			System.out.println(hand.get(i).getValue());
 		}
 	}
-
+	public void setCard(int i, Card c)
+   	{
+      		c.setLocation(i);
+      		hand.set(i,c);
+         
+   	}
 	public Card[] getOuterCards(){
 		// Card left = hand.get(0);
 		// Card right = hand.get(3);
