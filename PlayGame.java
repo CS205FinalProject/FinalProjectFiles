@@ -425,6 +425,7 @@ class PlayGame {
         System.out.println("Round number : " + roundNumber);
         System.out.println("Round Over"); 
         scores();
+        winRound();
         endOfGameRounds(roundNumber,gameOverRound);
         
         
@@ -501,17 +502,21 @@ class PlayGame {
     
          System.out.println("You have chosen Game Style 2");
          System.out.println("How much time would you like the game to last in minutes?");
-         int choice = keyboard.nextInt();
+         int time = keyboard.nextInt();
          
-         while( choice <1 || choice>60){
+         while( time <1 || time>60){
+            System.out.println("You have either choosen to much time or to little. Please enter a number between 1 and 60."); 
             System.out.println("How much time would you like the game to last in minutes?");
-            choice = keyboard.nextInt();
+            time = keyboard.nextInt();
          
          }
          
+         time = time*60*1000;
          
-         for(int i=0;i<2;i++){
+         long startTime = System.currentTimeMillis();
+         while((System.currentTimeMillis()-startTime)<time){
                roundOver = false;
+               System.out.println("Time Remaining: "+ (time -(System.currentTimeMillis()-startTime))/1000 + " seconds.");
             while(!roundOver){
             
                System.out.println("------------------------");
@@ -560,13 +565,18 @@ class PlayGame {
         System.out.println("Round number : " + roundNumber);
         System.out.println("Round Over"); 
         scores();
-        endOfGameElimination();
+        winRound();
     }//end of for   
     
    }//end of game style 2 
-    if(gameStyle ==1){
+      if(gameStyle ==0){
+         mostRoundsWon();
+      }else if(gameStyle ==1){
       winnerElimination();
-    }
+    }else if(gameStyle ==2){
+         mostRoundsWon();
+         System.out.println("Out of Time");
+      }
     System.out.println("Game Over");
    }//end of PlayGame
    
@@ -832,7 +842,8 @@ class PlayGame {
       
       if(roundNumber == gameOverRound){
          gameOver = true;
-         output = true; 
+         output = true;
+     
       }else{
          output = false; 
       }// end of else 
@@ -961,9 +972,6 @@ class PlayGame {
    
       // create a Scanner object for keyboard
       Scanner keyboard = new Scanner(System.in);
-      Card power = new Card(12);
-      
-      gameDiscardPile.setTopCard(power);
       
       System.out.println("["+player.getName()+"]");
       System.out.println("It is your turn to draw a card. The card on top of the discard pile is a " + gameDiscardPile.list.get(0).getValue() +
@@ -1230,4 +1238,118 @@ class PlayGame {
       System.out.println("**************************");
       
    }//end of winnerElimination method 
+   
+   
+   
+//////////////////////////////////////////////////// winRound method  /////////////////////////////////////////////////////////////   
+
+// This method is going to use array and loops to decide who is still in the game and who currently has the lowest score so that they can be declared 
+// the winner of the round. 
+
+   public void winRound(){
+   
+         ArrayList<Player> all = new ArrayList<Player>(4);
+         ArrayList<Player> round = new ArrayList<Player>(4);
+         all.add(p1);
+         all.add(p2);
+         all.add(p3);
+         all.add(p4);
+          
+         
+         for(Player object: all){
+            if(object.isInGame()){
+               round.add(object);
+            }//end of if
+         }//end of for 
+         
+         Player min = new Player(round.get(0));
+         
+         for(Player object: round){
+            
+            if(object.getScore() <= min.getScore()){
+               
+               min.update(object); 
+            }
+            
+         
+         }
+         
+         
+         System.out.println("---------------------------------------");
+         if(min.nameEqual(p1.getName())==true){
+            p1.roundWon();
+            System.out.println(p1.getName()+" has won the round.");
+         }else if(min.nameEqual(p2.getName())==true){
+            p2.roundWon();
+            System.out.println(p2.getName()+" has won the round.");
+         }else if(min.nameEqual(p3.getName())== true){
+            p3.roundWon();
+            System.out.println(p3.getName()+" has won the round.");
+         }else if(min.nameEqual(p4.getName())== true){
+            p4.roundWon();
+            System.out.println(p4.getName()+" has won the round.");
+         }
+         System.out.println("---------------------------------------");
+         
+         
+   
+   }//end of winRound method     
+   
+   
+   
+//////////////////////////////////////////////////// mostRoundsWon method  /////////////////////////////////////////////////////////////   
+
+
+//This method is going to be called when the final round of a game is played and we need to know which player won the most rounds, so we can declare who won the game. 
+
+   public void mostRoundsWon(){
+   
+         ArrayList<Player> all = new ArrayList<Player>(4);
+         ArrayList<Player> won = new ArrayList<Player>(4);
+         all.add(p1);
+         all.add(p2);
+         all.add(p3);
+         all.add(p4);
+          
+         
+         for(Player object: all){
+            if(object.isInGame()){
+               won.add(object);
+            }//end of if
+         }//end of for 
+         
+         Player win = new Player(p1);
+         
+         for(Player object: won){
+            
+            if(object.getRoundsWon() > win.getRoundsWon()){
+               
+               win.update(object); 
+            }
+            
+         
+         }
+         
+         
+         System.out.println("**************************");
+         if(win.nameEqual(p1.getName())==true){
+            System.out.println("Winner: Player 1");
+            System.out.println("Rounds Won: "+p1.getRoundsWon());
+         }else if(win.nameEqual(p2.getName())==true){
+            System.out.println("Winner: Player 2");
+            System.out.println("Rounds Won: "+p2.getRoundsWon());
+         }else if(win.nameEqual(p3.getName())== true){
+            System.out.println("Winner: Player 3");
+            System.out.println("Rounds Won: "+p3.getRoundsWon());
+         }else if(win.nameEqual(p4.getName())== true){
+            System.out.println("Winner: Player 4");
+            System.out.println("Rounds Won: "+p4.getRoundsWon());
+         }
+         System.out.println("**************************");
+   }//end of the mostRoundsWon method 
+   
+   
+   
+   
+   
 }//end of class 

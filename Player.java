@@ -9,6 +9,7 @@ public class Player{
 	
 	Hand hand = new Hand();
 	int score;
+   int roundsWon = 0; 
 	boolean human;
    boolean inGame;
    String name; 
@@ -123,6 +124,18 @@ public class Player{
       getScore();
    }
    
-   
+   public void setRoundsWon(int x)
+   {
+      roundsWon = x; 
+   }
 	
+   public int getRoundsWon()
+   {
+      return roundsWon; 
+   } 
+   
+   public void roundWon()
+   {
+      roundsWon = roundsWon +1; 
+   }
 }

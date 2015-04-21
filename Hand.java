@@ -48,7 +48,20 @@ public class Hand{
    
    public int getValue()
    {
-      int x = hand.get(0).getValue() + hand.get(1).getValue() + hand.get(2).getValue() + hand.get(3).getValue();
+      int x = 0;
+      int value = 9; 
+      
+      
+      for(int i = 0; i <4; i++){
+            if(hand.get(i).getValue() > value){
+               x = x+10;
+            }else{
+               x = x + hand.get(i).getValue();
+            }
+         }//end of for
+      
+      
+      //hand.get(0).getValue() + hand.get(1).getValue() + hand.get(2).getValue() + hand.get(3).getValue();
       return x;
    }
 	
