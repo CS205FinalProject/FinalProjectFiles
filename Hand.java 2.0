@@ -1,0 +1,43 @@
+// CWY
+// Hand v1.0
+// 3/22/15
+// updates 3/30/15 by KM
+
+import java.util.*;
+
+public class Hand{
+
+	private ArrayList <Card> hand;
+	
+	public Hand(){
+		hand = new ArrayList<Card>();
+	}
+	
+	public void add(Card card)
+   {
+		hand.add(card);
+	}
+   
+   
+	public Card getCard(int i)
+   {
+      Card c = (hand.get(i));
+      return c;
+   }
+   
+	public void printHand(){
+		for (int i=0; i<hand.size(); i++){
+			System.out.println(hand.get(i).getValue());
+		}
+	}
+	public void setCard(int i, Card c)
+   {
+      hand.set(i,c);   
+   }
+   
+	public void clear(){
+		hand.clear();
+	}
+	
+	
+}
